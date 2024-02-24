@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerodha - Trading Platform</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #fff7e0; /* Light yellow background */
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        #marketData, #orderForm {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .stock {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        label {
+            color: #333;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        #orderStatus {
+            display: none;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Zerodha - Trading Platform</h1>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="marketData">
+                <h2>Market Data</h2>
+                <p class="stock" id="TCS">TCS: Loading...</p>
+                <p class="stock" id="RELIANCE">Reliance: Loading...</p>
+                <p class="stock" id="HDFCBANK">HDFC Bank: Loading...</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form id="orderForm">
+                <h2>Place Order</h2>
+                <div class="form-group">
+                    <label for="symbol">Symbol:</label>
+                    <input type="text" class="form-control" id="symbol" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="orderType">Order Type:</label>
+                    <select class="form-control" id="orderType" required>
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-dark" onclick="placeOrder()">Place Order</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="orderStatus" class="alert alert-success" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Mock market data for Indian stocks
+    const marketData = {
+        'TCS': 3500.0,
+        'RELIANCE': 2450.0,
+        'HDFCBANK': 1500.0,
+    };
+
+    // Display market data with the Rupee symbol
+    Object.keys(marketData).forEach(symbol => {
+        document.getElementById(symbol).innerText = `${symbol}: ₹${marketData[symbol]}`;
+    });
+
+    // Function to place an order (replace with actual order placement logic)
+    function placeOrder() {
+        const symbol = document.getElementById('symbol').value;
+        const quantity = parseInt(document.getElementById('quantity').value);
+        const orderType = document.getElementById('orderType').value;
+
+        // Mock order placement logic (replace with actual implementation)
+        const orderStatusElement = document.getElementById('orderStatus');
+        orderStatusElement.style.display = 'none';
+
+        if (symbol && quantity && orderType) {
+            const orderStatusMessage = `Order placed: ${orderType} ${quantity} shares of ${symbol}`;
+            orderStatusElement.innerText = orderStatusMessage;
+            orderStatusElement.className = 'alert alert-success';
+            orderStatusElement.style.display = 'block';
+
+            // You can perform further actions here, such as sending the order to a backend server.
+        } else {
+            orderStatusElement.innerText = 'Please fill out all fields.';
+            orderStatusElement.className = 'alert alert-danger';
+            orderStatusElement.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
